@@ -6,12 +6,17 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('');
 
-  const handleOnChange = (event) => {
+  const handleNameChange = (event) => {
     setNewName(event.target.value);
   }
 
-  const addName = (event) => {
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value);
+  }
+
+  const addInfo = (event) => {
     event.preventDefault();
 
     if (checkIfNameExists()) {
@@ -19,7 +24,8 @@ const App = () => {
       return;
     } 
 
-    setPersons([...persons, {name: newName}]);
+    setPersons([...persons, { name: newName, number: newNumber }]);
+    setNewNumber('');
     setNewName('');
   }
 
@@ -30,12 +36,21 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addName}>
+      <form onSubmit={addInfo}>
         <div>
-          name: <input 
-                  value={newName} 
-                  onChange={handleOnChange}
-                />
+          <div>
+            name: <input 
+                    value={newName} 
+                    onChange={handleNameChange}
+                  />
+          </div>
+         <div>
+            Phone number: <input 
+                            value={newNumber}
+                            onChange={handleNumberChange}
+                          />
+         </div>
+          
         </div>
         <div>
           <button type="submit">add</button>
