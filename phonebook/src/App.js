@@ -14,8 +14,17 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault();
 
+    if (checkIfNameExists()) {
+      alert(`${newName} already exists!`);
+      return;
+    } 
+
     setPersons([...persons, {name: newName}]);
     setNewName('');
+  }
+
+  const checkIfNameExists = () => {
+   return persons.some(person => person.name === newName);
   }
 
   return (
