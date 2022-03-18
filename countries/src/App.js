@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchField from "./components/SearchField";
+import Results from "./components/Results";
 
 const App = () => {
 
@@ -27,7 +28,7 @@ const filteredResults = countries.filter(country => {
   return (
     <div>
       <SearchField value={searchTerm} onSearchChange={onSearchChange} />
-      {filteredResults.map(country => <p key={country.name.common}>{country.name.common}</p>)}
+      <Results countries={filteredResults} />
     </div>
   );
 }
