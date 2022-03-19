@@ -1,8 +1,7 @@
 
 
-const CountryCard = ({ country }) => {
+const CountryView = ({ country }) => {
 
-    console.log(country);
     let languages = [];
 
 
@@ -24,4 +23,4 @@ const CountryCard = ({ country }) => {
     );
 }
 
-export default CountryCard;
+export default CountryView;
