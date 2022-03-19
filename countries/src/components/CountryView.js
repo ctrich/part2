@@ -1,9 +1,30 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 const CountryView = ({ country }) => {
+    const [weather, setWeather] = useState({});
 
     let languages = [];
+    const api_key = process.env.REACT_APP_WEATHER;
 
+    useEffect(() => {
+        axios
+            .get(`https://api.openweathermap.org/data/2.5/weather?lat=${country.latlng[0]}&lon=${country.latlng[1]}&appid=${api_key}&units=imperial`)
+            .then(response => {
+                setWeather(response.data);
+            })
+    }, []);
+
+    const weatherLoading = JSON.stringify(weather) === '{}' ? '' : 
+                                    <section>
+                                        <h2>Weather in {country.capital}</h2>
+                                        <div>temperature: {weather.main.temp} fahrenheit</div>
+                                        <span>wind {weather.wind.speed}mph</span>
+                                        <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} />
+                                    </section>
+    
+    
 
     for (let key in country.languages) {
         languages.push(country.languages[key]);
@@ -19,6 +40,7 @@ const CountryView = ({ country }) => {
                 {languages.map(language => <li key={language}>{language}</li>)}
             </ul>
             <img src={country.flags.png} alt="flag" />
+            {weatherLoading}
         </div>
     );
 }
