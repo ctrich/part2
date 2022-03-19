@@ -20,8 +20,8 @@ const CountryView = ({ country }) => {
                                     <section>
                                         <h2>Weather in {country.capital}</h2>
                                         <div>temperature: {weather.main.temp} fahrenheit</div>
-                                        <span>wind {weather.wind.speed}mph</span>
                                         <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} />
+                                        <span>wind {weather.wind.speed}mph</span>
                                     </section>
     
     
