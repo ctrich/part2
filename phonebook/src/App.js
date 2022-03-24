@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import peopleServices from './services/people';
 import Display from './components/Display';
 import AddForm from './components/AddForm';
 import Search from './components/Search';
@@ -12,12 +12,11 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(()=> {
-    axios
-        .get('http://localhost:3001/persons')
-        .then(response => {
-          console.log(response);
-          setPersons(response.data);
-        })
+    peopleServices
+      .getAll()
+      .then(people => {
+        setPersons(people);
+      })
   }, [])
 
   const handleNameChange = (event) => {
@@ -45,14 +44,13 @@ const App = () => {
       number: newNumber,
     };
 
-    axios
-        .post('http://localhost:3001/persons', newPerson)
-        .then(response => {
-          console.log('post response', response.data)
-          setPersons(persons.concat(response.data));
-          setNewNumber('');
-          setNewName('');
-        });
+    peopleServices
+      .create(newPerson)
+      .then( returnedPerson => {
+        setPersons(persons.concat(returnedPerson));
+        setNewNumber('');
+        setNewName('');
+      });
   }
     
 
