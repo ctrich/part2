@@ -40,10 +40,21 @@ const App = () => {
       return;
     } 
 
-    setPersons([...persons, { name: newName, number: newNumber }]);
-    setNewNumber('');
-    setNewName('');
+    const newPerson = {
+      name: newName,
+      number: newNumber,
+    };
+
+    axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(response => {
+          console.log('post response', response.data)
+          setPersons(persons.concat(response.data));
+          setNewNumber('');
+          setNewName('');
+        });
   }
+    
 
   const checkIfNameExists = () => {
    return persons.some(person => person.name === newName);
@@ -72,4 +83,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
